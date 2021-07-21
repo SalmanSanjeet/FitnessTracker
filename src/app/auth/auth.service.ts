@@ -1,18 +1,22 @@
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AuthData } from './auth-data.model';
 import { User } from './user.model';
 
+@Injectable()
 export class AuthService{
-    private user: User = {userId: '', email: ''};
+    private user!: User ;
     authChange = new Subject<boolean>();
 
+    constructor(private router: Router) {}
     // tslint:disable-next-line: typedef
     registeredUser(authdata: AuthData){
         this.user = {
             email: authdata.email,
             userId: Math.round(Math.random() * 10000).toString()
         };
-        this.authChange.next(true);
+        this.authSuccessfully();
     }
 
     // tslint:disable-next-line: typedef
@@ -21,21 +25,27 @@ export class AuthService{
             email: authdata.email,
             userId: Math.round(Math.random() * 10000).toString()
         };
-        this.authChange.next(true);
+        this.authSuccessfully();
     }
 
-    // tslint:disable-next-line: typedef
-    logout(){
+    logout(): void{
         this.user = {userId: '', email: ''};
         this.authChange.next(false);
+        this.router.navigate(['/login']);
     }
-    // tslint:disable-next-line: typedef
-    getUser(){
+
+    getUser(): User{
         return { ...this.user };
     }
 
-    // tslint:disable-next-line: typedef
-    isAuth(){
-        return this.user.email === '' || this.user.userId === '';
+
+    isAuth(): boolean{
+        console.log(this.user);
+        return !!this.user;
+    }
+
+    private authSuccessfully(): void{
+        this.authChange.next(true);
+        this.router.navigate(['/training']);
     }
 }

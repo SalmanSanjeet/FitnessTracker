@@ -29,12 +29,11 @@ export class SidenavListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void{
     this.authSuscription.unsubscribe();
   }
-  // tslint:disable-next-line: typedef
-  onClose() {
-    this.authService.logout();
-    this.closeSidenav.emit();
-  }
   onLogout(): void{
+    this.closeSidenav.emit();
     this.authService.logout();
+  }
+  onClose(): void{
+    this.closeSidenav.emit();
   }
 }
