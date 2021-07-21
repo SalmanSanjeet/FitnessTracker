@@ -8,7 +8,7 @@ export class TrainingService{
         { id: 'side-lunges', name: 'Side Lunges', duration: 120, calories: 18 },
         { id: 'burpees', name: 'Burpees', duration: 60, calories: 8 }
     ];
-    excercises: Excercise[] = [];
+    private excercises: Excercise[] = [];
     excercisedChanged = new Subject<Excercise>();
     private runningExcercise: Excercise;
 
@@ -41,6 +41,10 @@ export class TrainingService{
             });
         this.runningExcercise = null;
         this.excercisedChanged.next(null);
+    }
+
+    getCompletedOrCancelledExcercise(): Excercise[]{
+        return this.excercises.slice();
     }
 
     getRunningExcercise(): Excercise{

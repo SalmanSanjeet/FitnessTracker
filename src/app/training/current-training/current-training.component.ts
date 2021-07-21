@@ -9,7 +9,7 @@ import { StopTrainingComponent } from './stop-training.component';
   styleUrls: ['./current-training.component.css'],
 })
 export class CurrentTrainingComponent implements OnInit {
-  //@Output() trainingExit = new EventEmitter();
+  // @Output() trainingExit = new EventEmitter();
   progress = 0;
   timer: any;
   constructor(private dialog: MatDialog, private trainingService: TrainingService) {}
